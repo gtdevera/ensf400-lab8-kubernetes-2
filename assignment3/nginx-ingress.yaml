@@ -1,24 +1,19 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: example-ingress
+  name: nginx-ingress
   annotations:
     ingress.kubernetes.io/rewrite-target: /
+  labels:
+    app: nginx
 spec:
   rules:
   - http:
       paths:
-        - path: /apple
+        - path: /
           pathType: Prefix
           backend:
             service:
-              name: apple-service
+              name: nginx-svc
               port:
-                number: 5678
-        - path: /banana
-          pathType: Prefix
-          backend:
-            service:
-              name: banana-service
-              port:
-                number: 5678
+                number: 8080
