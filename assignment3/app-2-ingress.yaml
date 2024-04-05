@@ -3,19 +3,20 @@ kind: Ingress
 metadata:
   name: app-2-ingress
   annotations:
-    kubernetes.io/ingress.class: app-2
+    nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/canary: "true"
     nginx.ingress.kubernetes.io/canary-weight: "30"
   labels:
     app: app-2
 spec:
+  ingressClassName: nginx
   rules:
   - http:
       paths:
-      - path: /
+      - path: /app
         pathType: Prefix
         backend:
           service:
-            name: app-2-svc
+            name: app-2
             port:
               number: 8080
